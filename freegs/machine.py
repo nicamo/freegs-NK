@@ -31,7 +31,8 @@ from scipy.interpolate import interp1d
 from .coil import Coil, AreaCurrentLimit
 from .shaped_coil import ShapedCoil
 from .pre_calc_coil import PreCalcCoil
-from .filament_coil import FilamentCoil
+#from .filament_coil import FilamentCoil
+from .multi_coil import MultiCoil
 
 # We need this for the `label` part of the Circuit dtype for writing
 # to HDF5 files. See the following for information:
@@ -841,7 +842,7 @@ def MASTU_simple():
     """This is an older version of the MAST-U coilset.
     A simplified set of coils, with one strand per coil.
     This may be easier to use for initial development of scenarios,
-    but less detailed than the FilamentCoil description (MASTU).
+    but less detailed than the MultiCoil description (MASTU).
     """
     coils = [
         ("Solenoid", Solenoid(0.19475, -1.581, 1.581, 324)),
@@ -1090,11 +1091,11 @@ def MASTU_simple():
 
 
 #########################################
-# MAST-U, using FilamentCoil to represent multiple strands
+# MAST-U, using MultiCoil to represent multiple strands
 
 
 def MASTU():
-    """MAST-Upgrade, using FilamentCoil to represent coils with different locations
+    """MAST-Upgrade, using MultiCoil to represent coils with different locations
     for each strand.
     """
     d1_upper_r = [
@@ -2313,13 +2314,13 @@ def MASTU():
 
     coils = [
         ("Solenoid", Solenoid(0.19475, -1.581, 1.581, 324, control=False)),
-        ("Pc", FilamentCoil(pc_r, pc_z)),
+        ("Pc", MultiCoil(pc_r, pc_z)),
         (
             "Px",
             Circuit(
                 [
-                    ("PxU", FilamentCoil(px_upper_r, px_upper_z), 1.0),
-                    ("PxL", FilamentCoil(px_upper_r, px_lower_z), 1.0),
+                    ("PxU", MultiCoil(px_upper_r, px_upper_z), 1.0),
+                    ("PxL", MultiCoil(px_upper_r, px_lower_z), 1.0),
                 ]
             ),
         ),
@@ -2327,8 +2328,8 @@ def MASTU():
             "D1",
             Circuit(
                 [
-                    ("D1U", FilamentCoil(d1_upper_r, d1_upper_z), 1.0),
-                    ("D1L", FilamentCoil(d1_upper_r, d1_lower_z), 1.0),
+                    ("D1U", MultiCoil(d1_upper_r, d1_upper_z), 1.0),
+                    ("D1L", MultiCoil(d1_upper_r, d1_lower_z), 1.0),
                 ]
             ),
         ),
@@ -2336,8 +2337,8 @@ def MASTU():
             "D2",
             Circuit(
                 [
-                    ("D2U", FilamentCoil(d2_upper_r, d2_upper_z), 1.0),
-                    ("D2L", FilamentCoil(d2_upper_r, d2_lower_z), 1.0),
+                    ("D2U", MultiCoil(d2_upper_r, d2_upper_z), 1.0),
+                    ("D2L", MultiCoil(d2_upper_r, d2_lower_z), 1.0),
                 ]
             ),
         ),
@@ -2345,8 +2346,8 @@ def MASTU():
             "D3",
             Circuit(
                 [
-                    ("D3U", FilamentCoil(d3_upper_r, d3_upper_z), 1.0),
-                    ("D3L", FilamentCoil(d3_upper_r, d3_lower_z), 1.0),
+                    ("D3U", MultiCoil(d3_upper_r, d3_upper_z), 1.0),
+                    ("D3L", MultiCoil(d3_upper_r, d3_lower_z), 1.0),
                 ]
             ),
         ),
@@ -2354,8 +2355,8 @@ def MASTU():
             "Dp",
             Circuit(
                 [
-                    ("DPU", FilamentCoil(dp_upper_r, dp_upper_z), 1.0),
-                    ("DPL", FilamentCoil(dp_upper_r, dp_lower_z), 1.0),
+                    ("DPU", MultiCoil(dp_upper_r, dp_upper_z), 1.0),
+                    ("DPL", MultiCoil(dp_upper_r, dp_lower_z), 1.0),
                 ]
             ),
         ),
@@ -2363,8 +2364,8 @@ def MASTU():
             "D5",
             Circuit(
                 [
-                    ("D5U", FilamentCoil(d5_upper_r, d5_upper_z), 1.0),
-                    ("D5L", FilamentCoil(d5_upper_r, d5_lower_z), 1.0),
+                    ("D5U", MultiCoil(d5_upper_r, d5_upper_z), 1.0),
+                    ("D5L", MultiCoil(d5_upper_r, d5_lower_z), 1.0),
                 ]
             ),
         ),
@@ -2372,8 +2373,8 @@ def MASTU():
             "D6",
             Circuit(
                 [
-                    ("D6U", FilamentCoil(d6_upper_r, d6_upper_z), 1.0),
-                    ("D6L", FilamentCoil(d6_upper_r, d6_lower_z), 1.0),
+                    ("D6U", MultiCoil(d6_upper_r, d6_upper_z), 1.0),
+                    ("D6L", MultiCoil(d6_upper_r, d6_lower_z), 1.0),
                 ]
             ),
         ),
@@ -2381,8 +2382,8 @@ def MASTU():
             "D7",
             Circuit(
                 [
-                    ("D7U", FilamentCoil(d7_upper_r, d7_upper_z), 1.0),
-                    ("D7L", FilamentCoil(d7_upper_r, d7_lower_z), 1.0),
+                    ("D7U", MultiCoil(d7_upper_r, d7_upper_z), 1.0),
+                    ("D7L", MultiCoil(d7_upper_r, d7_lower_z), 1.0),
                 ]
             ),
         ),
@@ -2390,8 +2391,8 @@ def MASTU():
             "P4",
             Circuit(
                 [
-                    ("P4U", FilamentCoil(p4_upper_r, p4_upper_z), 1.0),
-                    ("P4L", FilamentCoil(p4_upper_r, p4_lower_z), 1.0),
+                    ("P4U", MultiCoil(p4_upper_r, p4_upper_z), 1.0),
+                    ("P4L", MultiCoil(p4_upper_r, p4_lower_z), 1.0),
                 ]
             ),
         ),
@@ -2399,8 +2400,8 @@ def MASTU():
             "P5",
             Circuit(
                 [
-                    ("P5U", FilamentCoil(p5_upper_r, p5_upper_z), 1.0),
-                    ("P5L", FilamentCoil(p5_upper_r, p5_lower_z), 1.0),
+                    ("P5U", MultiCoil(p5_upper_r, p5_upper_z), 1.0),
+                    ("P5L", MultiCoil(p5_upper_r, p5_lower_z), 1.0),
                 ]
             ),
         ),
@@ -2408,8 +2409,8 @@ def MASTU():
             "P6",
             Circuit(
                 [
-                    ("P6U", FilamentCoil(p6_upper_r, p6_upper_z), 1.0),
-                    ("P6L", FilamentCoil(p6_upper_r, p6_lower_z), -1.0),
+                    ("P6U", MultiCoil(p6_upper_r, p6_upper_z), 1.0),
+                    ("P6L", MultiCoil(p6_upper_r, p6_lower_z), -1.0),
                 ]
             ),
         ),
